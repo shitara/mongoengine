@@ -110,9 +110,10 @@ class BaseList(list):
         super(BaseList, self).__init__(list_items)
 
     def __getitem__(self, key, *args, **kwargs):
-        attr = getattr(self, key, None)
-        if attr:
-            return attr
+        try:
+            value = super(BaseList, self).__getitem__(key)
+        except TypeError as e:
+            return getattr(self, key)
 
         value = super(BaseList, self).__getitem__(key)
 
@@ -199,6 +200,9 @@ class BaseList(list):
     def sort(self, *args, **kwargs):
         self._mark_as_changed()
         return super(BaseList, self).sort(*args, **kwargs)
+
+    def index(self, value):
+        return super(BaseList, self).index(value) if value in self else -1
 
     def _mark_as_changed(self, key=None):
         if hasattr(self._instance, '_mark_as_changed'):
