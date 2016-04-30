@@ -110,8 +110,9 @@ class BaseList(list):
         super(BaseList, self).__init__(list_items)
 
     def __getitem__(self, key, *args, **kwargs):
-        item = getattr(self, key, None)
-        if item: return item
+        attr = getattr(self, key, None)
+        if attr:
+            return attr
 
         value = super(BaseList, self).__getitem__(key)
 
