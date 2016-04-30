@@ -110,7 +110,7 @@ class BaseList(list):
         super(BaseList, self).__init__(list_items)
 
     def __getitem__(self, key, *args, **kwargs):
-        value = super(BaseList, self).__getitem__(key)
+        value = super(BaseList, self).__getitem__(int(key))
 
         EmbeddedDocument = _import_class('EmbeddedDocument')
         if isinstance(value, EmbeddedDocument) and value._instance is None:
