@@ -115,8 +115,6 @@ class BaseList(list):
         except TypeError as e:
             return getattr(self, key)
 
-        value = super(BaseList, self).__getitem__(key)
-
         EmbeddedDocument = _import_class('EmbeddedDocument')
         if isinstance(value, EmbeddedDocument) and value._instance is None:
             value._instance = self._instance
